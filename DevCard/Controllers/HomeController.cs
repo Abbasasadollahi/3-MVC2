@@ -1,4 +1,5 @@
 ﻿using DevCard.Models;
+using DevCard_MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,6 +16,12 @@ namespace DevCard.Controllers
             return View();
         }
         public IActionResult Contact()
+        {
+            var contact = new Contact();
+            return View(contact);
+        }
+        [HttpPost]
+        public IActionResult Contact(Contact contact)
         {
             return View();
         }
