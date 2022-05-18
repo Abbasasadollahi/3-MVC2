@@ -1,5 +1,4 @@
-﻿@using DevCard_MVC.Models
-@model Contact
+﻿@model Contact
 @{
     ViewData["Title"] = "ارتباط با ما";
 }
@@ -55,7 +54,20 @@
 </section>
 <section class="contact-section px-3 py-5 p-md-5">
     <div class="container">
-        <form id="contact-form" class="contact-form col-lg-8 mx-lg-auto" method="post" asp="Contact">
+        @if (!string.IsNullOrWhiteSpace(ViewBag.success))
+        {
+            <div class="alert-success p-5">
+                <p>@ViewBag.success</p>
+            </div>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(ViewBag.error))
+        {
+            <div class="alert-danger p-5">
+                <p>@ViewBag.error</p>
+            </div>
+        }
+        <form id="contact-form" class="contact-form col-lg-8 mx-lg-auto" method="post" asp-action="Contact" asp-controller="Home">
             <h3 class="text-center mb-3">در دسترس باشید!</h3>
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -69,12 +81,8 @@
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
                 <div class="form-group col-12">
-                    <select asp-for="Service" class="custom-select">
-                        <option selected>سرویس مورد نظر خود را انتخاب کنید...</option>
-                        <option value="basic">نقره ای</option>
-                        <option value="standard">طلایی</option>
-                        <option value="premium">پلاتین</option>
-                        <option value="not sure">الماس</option>
+                    <select class="custom-select" asp-for="Service" asp-items="Model.Services">
+                        <option selected="selected">سرویس مورد نظر خود را انتخاب کنید...</option>
                     </select>
                 </div>
                 <div class="form-group col-12">
